@@ -1,2 +1,163 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <div class="stars"></div>
+  <div class="nebula-bg"></div>
+  
+  <header class="app-header">
+    <div class="header-content">
+      <h1>✨ Idea Nebula</h1>
+      <div class="header-actions">
+        <button class="action-btn secondary" (click)="toggleCategoryManager()">
+          {{ showCategoryManager ? 'Hide Categories' : 'Manage Categories' }}
+        </button>
+        <button class="action-btn primary" (click)="addNewIdea()">
+          + New Idea
+        </button>
+        <div class="dropdown" #dropdown>
+          <button class="action-btn secondary" (click)="toggleDropdown()">
+            ⚙️ Options
+          </button>
+          <div class="dropdown-menu" [class.show]="showDropdown">
+            <button (click)="exportData()">📥 Export Data</button>
+            <label class="import-label">
+              📤 Import Data
+              <input type="file" (change)="importData($event)" accept=".json" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <app-category-manager
+      *ngIf="showCategoryManager"
+      [categories]="categories"
+      (addCategoryEvent)="addCategory($event)"
+      (deleteCategoryEvent)="deleteCategory($event)"
+    ></app-category-manager>
+
+    <div class="ideas-section">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Your Ideas</h2>
+          <p class="ideas-count">{{ ideas.length }} {{ ideas.length === 1 ? 'idea' : 'ideas' }}</p>
+        </div>
+        <div class="layout-controls">
+          <span class="layout-label">Layout:</span>
+          <div class="column-selector">
+            <button 
+              class="column-btn" 
+              [class.active]="gridColumns === 1"
+              (click)="setGridColumns(1)"
+              title="Single column"
+            >
+              <div class="column-icon">
+                <div class="col"></div>
+              </div>
+            </button>
+            <button 
+              class="column-btn" 
+              [class.active]="gridColumns === 2"
+              (click)="setGridColumns(2)"
+              title="Two columns"
+            >
+              <div class="column-icon">
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+            </button>
+            <button 
+              class="column-btn" 
+              [class.active]="gridColumns === 3"
+              (click)="setGridColumns(3)"
+              title="Three columns"
+            >
+              <div class="column-icon">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div 
+        class="ideas-grid"
+        [class.grid-1]="gridColumns === 1"
+        [class.grid-2]="gridColumns === 2"
+        [class.grid-3]="gridColumns === 3"
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event)"
+      >
+        <app-idea-card
+          *ngFor="let idea of ideas; trackBy: trackByIdea"
+          [idea]="idea"
+          [category]="getCategoryById(idea.categoryId)"
+          [categories]="categories"
+          [isNew]="newIdeaId === idea.id"
+          (update)="updateIdea(idea.id, $event)"
+          (delete)="deleteIdea(idea.id)"
+          cdkDrag
+        ></app-idea-card>
+      </div>
+
+      <div *ngIf="ideas.length === 0" class="empty-state">
+        <div class="empty-content">
+          <div class="empty-icon">✨</div>
+          <h3>No ideas in your nebula yet</h3>
+          <p>Start capturing your brilliant ideas and watch your personal nebula of creativity expand across the cosmos.</p>
+          <button class="action-btn primary" (click)="addNewIdea()">
+            Launch Your First Idea
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <p>Copyright © 2025 JNealCodes. All Rights Reserved.</p>
+      </div>
+      <div class="footer-right">
+        <button class="footer-link" (click)="showAboutModal = true">About</button>
+        <span class="footer-separator">|</span>
+        <a href="mailto:jason@jneal.com" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- About Modal -->
+  <div class="modal-overlay" [class.show]="showAboutModal" (click)="closeAboutModal($event)" (keypress)="closeAboutModal($event)" tabindex="0">
+    <div class="modal-content" (click)="$event.stopPropagation()" (keypress)="$event.stopPropagation()" tabindex="0">
+      <div class="modal-header">
+        <h2>About Idea Nebula</h2>
+        <button class="modal-close" (click)="showAboutModal = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="about-content">
+          <div class="about-icon">✨</div>
+          <h3>Privacy-First Idea Management</h3>
+          <p>
+            Idea Nebula is built with your privacy as the top priority. This application runs entirely in your browser with:
+          </p>
+          <ul class="feature-list">
+            <li>🔒 <strong>No backend servers</strong> - Everything stays on your device</li>
+            <li>🚫 <strong>No tracking or analytics</strong> - We don't collect any data about you</li>
+            <li>📱 <strong>No third-party pixels</strong> - No external scripts monitoring your activity</li>
+            <li>💾 <strong>Local storage only</strong> - Your ideas are stored safely in your browser</li>
+            <li>🌐 <strong>Works offline</strong> - No internet connection required after initial load</li>
+          </ul>
+          <p>
+            Your creative thoughts and ideas remain completely private and under your control. 
+            Export your data anytime to keep backups, and import them back whenever needed.
+          </p>
+          <div class="tech-note">
+            <strong>Built with:</strong> Angular, TypeScript, and modern web technologies for a fast, secure, and beautiful experience.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
