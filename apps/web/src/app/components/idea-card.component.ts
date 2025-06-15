@@ -27,7 +27,7 @@ import { Idea } from '../models/idea.model';
           {{ category.title }}
         </div>
         <button class="delete-btn" (click)="onDelete()" title="Delete idea">
-          ×
+          &times;
         </button>
       </div>
 
@@ -163,7 +163,7 @@ import { Idea } from '../models/idea.model';
         font-weight: bold;
         cursor: pointer;
         display: flex;
-        align-items: center;
+        align-items: top;
         justify-content: center;
         transition: all 0.3s ease;
         box-shadow: 0 2px 10px rgba(255, 107, 107, 0.4);

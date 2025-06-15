@@ -46,7 +46,7 @@ import { Category } from '../models/category.model';
             (click)="deleteCategory(category.id)"
             title="Delete category"
           >
-            ×
+            &times;
           </button>
         </div>
       </div>
