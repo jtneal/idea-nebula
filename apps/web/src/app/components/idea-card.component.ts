@@ -21,7 +21,9 @@ import { Idea } from '../models/idea.model';
       <div class="card-header">
         <div
           class="category-badge"
-          [style.background-color]="category?.color || 'rgba(255, 255, 255, 0.2)'"
+          [style.background-color]="
+            category?.color || 'rgba(255, 255, 255, 0.2)'
+          "
         >
           {{ category?.title || 'Uncategorized' }}
         </div>
