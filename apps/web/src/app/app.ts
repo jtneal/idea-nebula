@@ -4,13 +4,7 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { CategoryManagerComponent } from './components/category-manager.component';
