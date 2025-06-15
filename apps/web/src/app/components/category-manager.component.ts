@@ -61,7 +61,8 @@ import { Category } from '../models/category.model';
         border-radius: 16px;
         padding: 20px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        margin-bottom: 24px;
+        margin-bottom: 6px;
+        margin-top: 16px;
         position: relative;
         overflow: hidden;
       }

@@ -9,9 +9,6 @@
         <button class="action-btn secondary" (click)="toggleCategoryManager()">
           {{ showCategoryManager ? 'Hide Categories' : 'Manage Categories' }}
         </button>
-        <button class="action-btn primary" (click)="addNewIdea()">
-          + New Idea
-        </button>
         <div class="dropdown" #dropdown>
           <button class="action-btn secondary" (click)="toggleDropdown()">
             ⚙️ Options
@@ -39,10 +36,19 @@
     <div class="ideas-section">
       <div class="section-header">
         <div class="section-title">
-          <h2>Your Ideas</h2>
-          <a href="https://bolt.new/" class="bolt-logo" target="_blank">
-            <img alt="Bolt Logo" src="bolt.png" />
-          </a>
+          <div>
+            <h2>Your Ideas</h2>
+          </div>
+          <div>
+            <button class="action-btn primary" (click)="addNewIdea()">
+              + New Idea
+            </button>
+          </div>
+          <div>
+            <a href="https://bolt.new/" class="bolt-logo" target="_blank">
+              <img alt="Bolt Logo" src="bolt.png" />
+            </a>
+          </div>
         </div>
       </div>
 
