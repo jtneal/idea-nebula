@@ -42,53 +42,13 @@
           <h2>Your Ideas</h2>
           <p class="ideas-count">{{ ideas.length }} {{ ideas.length === 1 ? 'idea' : 'ideas' }}</p>
         </div>
-        <div class="layout-controls">
-          <span class="layout-label">Layout:</span>
-          <div class="column-selector">
-            <button 
-              class="column-btn" 
-              [class.active]="gridColumns === 1"
-              (click)="setGridColumns(1)"
-              title="Single column"
-            >
-              <div class="column-icon">
-                <div class="col"></div>
-              </div>
-            </button>
-            <button 
-              class="column-btn" 
-              [class.active]="gridColumns === 2"
-              (click)="setGridColumns(2)"
-              title="Two columns"
-            >
-              <div class="column-icon">
-                <div class="col"></div>
-                <div class="col"></div>
-              </div>
-            </button>
-            <button 
-              class="column-btn" 
-              [class.active]="gridColumns === 3"
-              (click)="setGridColumns(3)"
-              title="Three columns"
-            >
-              <div class="column-icon">
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col"></div>
-              </div>
-            </button>
-          </div>
-        </div>
       </div>
 
       <div 
-        class="ideas-grid"
-        [class.grid-1]="gridColumns === 1"
-        [class.grid-2]="gridColumns === 2"
-        [class.grid-3]="gridColumns === 3"
+        class="ideas-grid grid-3"
         cdkDropList
         (cdkDropListDropped)="onDrop($event)"
+        cdkDropListOrientation="mixed"
       >
         <app-idea-card
           *ngFor="let idea of ideas; trackBy: trackByIdea"
@@ -118,7 +78,7 @@
   <footer class="app-footer">
     <div class="footer-content">
       <div class="footer-left">
-        <p>Copyright © 2025 JNealCodes. All Rights Reserved.</p>
+        <p>Copyright © 2025 <a href="mailto:jason@jneal.com">JNealCodes</a>. All Rights Reserved.</p>
       </div>
       <div class="footer-right">
         <button class="footer-link" (click)="showAboutModal = true">About</button>
