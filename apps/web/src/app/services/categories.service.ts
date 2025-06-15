@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Category } from '../models/category.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoriesService {
   private readonly STORAGE_KEY = 'idea-nebula-categories';
@@ -21,7 +21,7 @@ export class CategoriesService {
       try {
         const categories = JSON.parse(stored).map((cat: any) => ({
           ...cat,
-          createdAt: new Date(cat.createdAt)
+          createdAt: new Date(cat.createdAt),
         }));
         this.categoriesSubject.next(categories);
       } catch (error) {
@@ -38,7 +38,7 @@ export class CategoriesService {
         { id: '1', title: 'Stellar', color: '#667eea', createdAt: new Date() },
         { id: '2', title: 'Cosmic', color: '#764ba2', createdAt: new Date() },
         { id: '3', title: 'Galactic', color: '#f093fb', createdAt: new Date() },
-        { id: '4', title: 'Nebular', color: '#4facfe', createdAt: new Date() }
+        { id: '4', title: 'Nebular', color: '#4facfe', createdAt: new Date() },
       ];
       this.categoriesSubject.next(defaultCategories);
       this.saveToStorage();
@@ -56,7 +56,7 @@ export class CategoriesService {
       id: this.generateId(),
       title,
       color,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     const updatedCategories = [...currentCategories, newCategory];
@@ -67,7 +67,7 @@ export class CategoriesService {
 
   updateCategory(id: string, updates: Partial<Category>): void {
     const currentCategories = this.categoriesSubject.value;
-    const updatedCategories = currentCategories.map(category =>
+    const updatedCategories = currentCategories.map((category) =>
       category.id === id ? { ...category, ...updates } : category
     );
     this.categoriesSubject.next(updatedCategories);
@@ -76,14 +76,16 @@ export class CategoriesService {
 
   deleteCategory(id: string): void {
     const currentCategories = this.categoriesSubject.value;
-    const filteredCategories = currentCategories.filter(category => category.id !== id);
+    const filteredCategories = currentCategories.filter(
+      (category) => category.id !== id
+    );
     this.categoriesSubject.next(filteredCategories);
     this.saveToStorage();
   }
 
   getCategoryById(id: string | null): Category | null {
     if (!id) return null;
-    return this.categoriesSubject.value.find(cat => cat.id === id) || null;
+    return this.categoriesSubject.value.find((cat) => cat.id === id) || null;
   }
 
   private generateId(): string {

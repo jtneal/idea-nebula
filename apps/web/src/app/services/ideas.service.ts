@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Idea } from '../models/idea.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IdeasService {
   private readonly STORAGE_KEY = 'idea-nebula-data';
@@ -19,11 +19,12 @@ export class IdeasService {
     if (stored) {
       try {
         const data = JSON.parse(stored);
-        const ideas = data.ideas?.map((idea: any) => ({
-          ...idea,
-          createdAt: new Date(idea.createdAt),
-          updatedAt: new Date(idea.updatedAt)
-        })) || [];
+        const ideas =
+          data.ideas?.map((idea: any) => ({
+            ...idea,
+            createdAt: new Date(idea.createdAt),
+            updatedAt: new Date(idea.updatedAt),
+          })) || [];
         this.ideasSubject.next(ideas);
       } catch (error) {
         console.error('Error loading ideas from storage:', error);
@@ -36,12 +37,16 @@ export class IdeasService {
     const currentIdeas = this.ideasSubject.value;
     const data = {
       ideas: currentIdeas,
-      exportedAt: new Date().toISOString()
+      exportedAt: new Date().toISOString(),
     };
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
   }
 
-  addIdea(title: string, description: string, categoryId: string | null = null): Idea {
+  addIdea(
+    title: string,
+    description: string,
+    categoryId: string | null = null
+  ): Idea {
     const currentIdeas = this.ideasSubject.value;
     const newIdea: Idea = {
       id: this.generateId(),
@@ -50,13 +55,13 @@ export class IdeasService {
       categoryId,
       createdAt: new Date(),
       updatedAt: new Date(),
-      priority: 0 // Top priority
+      priority: 0, // Top priority
     };
 
     // Increment priority of existing ideas
-    const updatedIdeas = currentIdeas.map(idea => ({
+    const updatedIdeas = currentIdeas.map((idea) => ({
       ...idea,
-      priority: idea.priority + 1
+      priority: idea.priority + 1,
     }));
 
     const allIdeas = [newIdea, ...updatedIdeas];
@@ -67,7 +72,7 @@ export class IdeasService {
 
   updateIdea(id: string, updates: Partial<Idea>): void {
     const currentIdeas = this.ideasSubject.value;
-    const updatedIdeas = currentIdeas.map(idea =>
+    const updatedIdeas = currentIdeas.map((idea) =>
       idea.id === id ? { ...idea, ...updates, updatedAt: new Date() } : idea
     );
     this.ideasSubject.next(updatedIdeas);
@@ -76,7 +81,7 @@ export class IdeasService {
 
   deleteIdea(id: string): void {
     const currentIdeas = this.ideasSubject.value;
-    const filteredIdeas = currentIdeas.filter(idea => idea.id !== id);
+    const filteredIdeas = currentIdeas.filter((idea) => idea.id !== id);
     this.ideasSubject.next(filteredIdeas);
     this.saveToStorage();
   }
@@ -84,7 +89,7 @@ export class IdeasService {
   reorderIdeas(ideas: Idea[]): void {
     const reorderedIdeas = ideas.map((idea, index) => ({
       ...idea,
-      priority: index
+      priority: index,
     }));
     this.ideasSubject.next(reorderedIdeas);
     this.saveToStorage();
@@ -94,7 +99,7 @@ export class IdeasService {
     const data = {
       ideas: this.ideasSubject.value,
       exportedAt: new Date().toISOString(),
-      version: '1.0'
+      version: '1.0',
     };
     return JSON.stringify(data, null, 2);
   }
@@ -106,7 +111,7 @@ export class IdeasService {
         const ideas = data.ideas.map((idea: any) => ({
           ...idea,
           createdAt: new Date(idea.createdAt),
-          updatedAt: new Date(idea.updatedAt)
+          updatedAt: new Date(idea.updatedAt),
         }));
         this.ideasSubject.next(ideas);
         this.saveToStorage();
