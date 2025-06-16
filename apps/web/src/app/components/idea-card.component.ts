@@ -71,8 +71,8 @@ import { Idea } from '../models/idea.model';
         </select>
 
         <div class="edit-actions">
-          <button class="save-btn" (click)="saveChanges()">Save</button>
           <button class="cancel-btn" (click)="cancelEditing()">Cancel</button>
+          <button class="save-btn" (click)="saveChanges()">Save</button>
         </div>
       </div>
     </div>
