@@ -10,11 +10,11 @@
           {{ showCategoryManager ? 'Hide Categories' : 'Manage Categories' }}
         </button>
         <div class="dropdown" #dropdown>
-          <button class="action-btn secondary" (click)="toggleDropdown()">
-            ⚙️ Options
+          <button class="action-btn secondary icon-only" (click)="toggleDropdown()">
+            ⚙️
           </button>
           <div class="dropdown-menu" [class.show]="showDropdown">
-            <button (click)="exportData()">📥 Export Data</button>
+            <button (click)="exportData()">💾 Export Data</button>
             <label class="import-label">
               📤 Import Data
               <input type="file" (change)="importData($event)" accept=".json" />
@@ -74,7 +74,7 @@
         <div class="empty-content">
           <div class="empty-icon">✨</div>
           <h3>No ideas in your nebula yet</h3>
-          <p>Start capturing your brilliant ideas and watch your personal nebula of creativity expand across the cosmos.</p>
+          <p>Start capturing your brilliant ideas and watch your personal nebula of creativity expand.</p>
           <button class="action-btn primary" (click)="addNewIdea()">
             Launch Your First Idea
           </button>

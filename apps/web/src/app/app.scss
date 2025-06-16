@@ -166,6 +166,16 @@
   transform: translateY(-1px);
 }
 
+.action-btn.icon-only {
+  font-size: 18px;
+  padding: 9px 12px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 5px 8px;
+  }
+}
+
 .dropdown {
   position: relative;
 }
@@ -565,11 +575,17 @@
   font-size: 14px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 476px) {
   .header-content {
     flex-direction: column;
     gap: 16px;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    gap: 16px;
   }
 
   .header-actions {
